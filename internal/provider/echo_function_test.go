@@ -9,17 +9,17 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/tfversion"
 )
 
-func TestExampleFunction_Known(t *testing.T) {
+func TestEchoFunction_KnownValue(t *testing.T) {
 	resource.UnitTest(t, resource.TestCase{
 		TerraformVersionChecks: []tfversion.TerraformVersionCheck{
-			tfversion.SkipBelow(version.Must(version.NewVersion("1.8.0"))),
+			tfversion.SkipBelow(version.Must(version.NewVersion("1.7.0"))),
 		},
 		ProtoV6ProviderFactories: testAccProtoV6ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: `
 				output "test" {
-					value = provider::scaffolding::example("testvalue")
+					value = provider::helpers::echo("testvalue")
 				}
 				`,
 				Check: resource.ComposeAggregateTestCheckFunc(
@@ -30,17 +30,17 @@ func TestExampleFunction_Known(t *testing.T) {
 	})
 }
 
-func TestExampleFunction_Null(t *testing.T) {
+func TestEchoFunction_NullValue(t *testing.T) {
 	resource.UnitTest(t, resource.TestCase{
 		TerraformVersionChecks: []tfversion.TerraformVersionCheck{
-			tfversion.SkipBelow(version.Must(version.NewVersion("1.8.0"))),
+			tfversion.SkipBelow(version.Must(version.NewVersion("1.7.0"))),
 		},
 		ProtoV6ProviderFactories: testAccProtoV6ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: `
 				output "test" {
-					value = provider::scaffolding::example(null)
+					value = provider::helpers::echo(null)
 				}
 				`,
 				// The parameter does not enable AllowNullValue
@@ -50,10 +50,10 @@ func TestExampleFunction_Null(t *testing.T) {
 	})
 }
 
-func TestExampleFunction_Unknown(t *testing.T) {
+func TestEchoFunction_UnknownValue(t *testing.T) {
 	resource.UnitTest(t, resource.TestCase{
 		TerraformVersionChecks: []tfversion.TerraformVersionCheck{
-			tfversion.SkipBelow(version.Must(version.NewVersion("1.8.0"))),
+			tfversion.SkipBelow(version.Must(version.NewVersion("1.7.0"))),
 		},
 		ProtoV6ProviderFactories: testAccProtoV6ProviderFactories,
 		Steps: []resource.TestStep{
@@ -64,7 +64,7 @@ func TestExampleFunction_Unknown(t *testing.T) {
 				}
 				
 				output "test" {
-					value = provider::scaffolding::example(terraform_data.test.output)
+					value = provider::helpers::echo(terraform_data.test.output)
 				}
 				`,
 				Check: resource.ComposeAggregateTestCheckFunc(
